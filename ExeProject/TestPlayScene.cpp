@@ -10,6 +10,7 @@ TestPlayScene::TestPlayScene(const std::string& sceneName)
 	: Scene(sceneName)
 	, playerComponent(nullptr)
 	, playerCameraComponent(nullptr)
+	, isSetPlayerCamera(false)
 {
 	{
 		auto* gameObject = gameObjectManager.AddGameObject(new GE::GameObject());
@@ -20,6 +21,12 @@ TestPlayScene::TestPlayScene(const std::string& sceneName)
 		playerCameraComponent->SetPitch(90);
 		playerCameraComponent->SetIsPlayScene(true);
 	}
+	{
+		auto* gameObject = gameObjectManager.AddGameObject(new GE::GameObject());
+		movingLengthWatcherComponent = gameObject->AddComponent<MovingLengthWatcherComponent>();
+	}
+
+	gameObjectManager.Awake();
 }
 
 TestPlayScene::~TestPlayScene()
@@ -28,11 +35,11 @@ TestPlayScene::~TestPlayScene()
 
 void TestPlayScene::Initialize()
 {
+	changeSceneInfo.flag = false;
 	gameObjectManager.Awake();
 	gameObjectManager.Start();
 
-	GE::GraphicsDeviceDx12* gDevice = dynamic_cast<GE::GraphicsDeviceDx12*>(graphicsDevice);
-	gDevice->SetMainCamera(playerCameraComponent->GetCamera());
+	isSetPlayerCamera = false;
 
 	const float MAX_START_TIME = 1;
 	startFlagController.Initialize();
@@ -42,12 +49,28 @@ void TestPlayScene::Initialize()
 
 void TestPlayScene::Update(float deltaTime)
 {
+	if (!isSetPlayerCamera)
+	{
+		GE::GraphicsDeviceDx12* gDevice = dynamic_cast<GE::GraphicsDeviceDx12*>(graphicsDevice);
+		gDevice->SetMainCamera(playerCameraComponent->GetCamera());
+		isSetPlayerCamera = true;
+	}
+
 	if (startFlagController.GetOverTimeTrigger())
 	{
 		startFlagController.SetFlag(false);
 	}
 
+	if (playerComponent->IsReturnStageSelectScene())
+	{
+		changeSceneInfo.flag = true;
+		changeSceneInfo.initNextSceneFlag = false;
+		changeSceneInfo.name = "TestScene";
+	}
+
 	gameObjectManager.Update(deltaTime);
+
+	movingLengthWatcherComponent->SetMovingLength(playerComponent->GetGameObject()->GetTransform()->position.x);
 
 	startFlagController.Update(deltaTime);
 }

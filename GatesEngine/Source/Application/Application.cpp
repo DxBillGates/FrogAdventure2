@@ -41,6 +41,9 @@ GE::Application::Application(const Math::Vector2& size, const std::string& title
 
 	graphicsDevice.SetMainCamera(mainCamera);
 	GameObject::SetGraphicsDevice(&graphicsDevice);
+
+	SceneInitializer sceneInitializer = { &audioManager,inputDevice,&graphicsDevice };
+	sceneManager.SetSceneInitializer(sceneInitializer);
 }
 
 GE::Application::~Application()

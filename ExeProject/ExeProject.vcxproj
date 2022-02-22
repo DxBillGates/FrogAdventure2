@@ -157,6 +157,7 @@
   <ItemGroup>
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MovingLengthWatcherComponent.cpp" />
     <ClCompile Include="PlayerCameraComponent.cpp" />
     <ClCompile Include="PlayerComponent.cpp" />
     <ClCompile Include="RotateOwnAxisComponent.cpp" />
@@ -170,6 +171,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
+    <ClInclude Include="MovingLengthWatcherComponent.h" />
     <ClInclude Include="PlayerCameraComponent.h" />
     <ClInclude Include="PlayerComponent.h" />
     <ClInclude Include="RotateOwnAxisComponent.h" />

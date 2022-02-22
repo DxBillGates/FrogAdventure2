@@ -8,6 +8,8 @@ class TestScene : public GE::Scene
 private:
 	PlayerComponent* playerComponent;
 	PlayerCameraComponent* playerCameraComponent;
+
+	bool isSetPlayerCamera;
 public:
 	TestScene();
 	TestScene(const std::string& sceneName);

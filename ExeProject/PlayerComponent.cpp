@@ -45,6 +45,7 @@ PlayerComponent::PlayerComponent()
 	, vel(GE::Math::Vector3())
 	, preVel(GE::Math::Vector3())
 	, isPlayScene(false)
+	, isReturnStageSelectScene(false)
 {
 }
 
@@ -67,6 +68,10 @@ void PlayerComponent::Update(float deltaTime)
 	bool isInputBoostKey = false;
 	if (inputDevice->GetKeyboard()->CheckHitKey(GE::Keys::SPACE))isInputBoostKey = true;
 	if (inputDevice->GetXCtrler()->CheckHitButton(GE::XInputControllerButton::XINPUT_B))isInputBoostKey = true;
+
+	bool isReturnScene = false;
+	if (inputDevice->GetKeyboard()->CheckHitKey(GE::Keys::D0))isReturnScene = true;
+	isReturnStageSelectScene = isReturnScene;
 
 	FixPosition(isPlayScene, deltaTime);
 	RotateAxis(isInputBoostKey, deltaTime);
@@ -102,4 +107,9 @@ void PlayerComponent::OnCollision(GE::ICollider* hitCollider)
 void PlayerComponent::SetIsPlayScene(bool flag)
 {
 	isPlayScene = flag;
+}
+
+bool PlayerComponent::IsReturnStageSelectScene()
+{
+	return isReturnStageSelectScene;
 }

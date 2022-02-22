@@ -7,6 +7,7 @@ namespace GE
 	class SceneManager
 	{
 	private:
+		SceneInitializer sceneInitializer;
 		std::vector<Scene*> scenes;
 		Scene* currentScene;
 		Scene* beforeScene;
@@ -18,6 +19,7 @@ namespace GE
 		void Update(float deltaTime);
 		void Draw();
 		void LateDraw();
+		void SetSceneInitializer(const SceneInitializer& sceneInitializer);
 
 		Scene* AddScene(Scene* newScene);
 		Scene* ChangeScene(const std::string& sceneName);

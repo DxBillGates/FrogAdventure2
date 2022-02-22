@@ -10,6 +10,7 @@ private:
 	GE::Math::Vector3 vel;
 	GE::Math::Vector3 preVel;
 	bool isPlayScene;
+	bool isReturnStageSelectScene;
 private:
 	void CalculateVelocity(bool isBoost, const GE::Math::Axis& axis, float deltaTime);
 	void RotateAxis(bool isBoost,float deltaTime);
@@ -22,5 +23,6 @@ public:
 	void Draw();
 	void OnCollision(GE::ICollider* hitCollider) override;
 	void SetIsPlayScene(bool flag);
+	bool IsReturnStageSelectScene();
 };
 
