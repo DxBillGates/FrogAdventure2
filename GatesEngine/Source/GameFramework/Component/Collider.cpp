@@ -86,6 +86,7 @@ void GE::Collider::Hit(ICollider* hitCollider, GameObject* other)
 {
 	gameObject->OnCollision(other);
 	gameObject->OnCollision(hitCollider);
+	gameObject->OnCollision(other,hitCollider);
 
 	hitFlagController.SetTime(0);
 	hitFlagController.SetFlag(true);
