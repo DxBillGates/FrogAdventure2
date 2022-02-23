@@ -10,8 +10,8 @@ private:
 	PlayerComponent* playerComponent;
 	PlayerCameraComponent* playerCameraComponent;
 	MovingLengthWatcherComponent* movingLengthWatcherComponent;
-	GE::FlagController startFlagController;
 	bool isSetPlayerCamera;
+	bool isClear;
 public:
 	TestPlayScene();
 	TestPlayScene(const std::string& sceneName);

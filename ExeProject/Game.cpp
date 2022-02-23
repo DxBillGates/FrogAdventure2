@@ -6,12 +6,13 @@
 #include "TestPlayScene.h"
 
 Game::Game()
-	: Application()
+	: Game({1920,1080},"no title")
 {
 }
 
 Game::Game(const GE::Math::Vector2& size, const std::string& title)
 	: Application(size, title)
+	, gameSetting(GameSetting::GetInstance())
 {
 }
 
@@ -38,7 +39,9 @@ bool Game::Initialize()
 
 bool Game::Update()
 {
-	Application::Update();
+	//Application::Update();
+	sceneManager.Update(timer.GetElapsedTime() * gameSetting->GetGameTime());
+	mainCamera->Update();
 	return true;
 }
 

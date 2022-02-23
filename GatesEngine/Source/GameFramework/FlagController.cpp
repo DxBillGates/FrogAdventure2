@@ -48,6 +48,11 @@ float GE::FlagController::GetTime()
 	return elapsedTime;
 }
 
+float GE::FlagController::GetMaxTime()
+{
+	return PROPERTY_MAX_TIME;
+}
+
 void GE::FlagController::SetFlag(bool setFlag)
 {
 	flag = setFlag;

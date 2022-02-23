@@ -11,7 +11,10 @@ TestPlayScene::TestPlayScene(const std::string& sceneName)
 	, playerComponent(nullptr)
 	, playerCameraComponent(nullptr)
 	, isSetPlayerCamera(false)
+	, isClear(false)
 {
+	// このステージの長さ
+	const float MAX_MOVING_LENGTH = 10000;
 	{
 		auto* gameObject = gameObjectManager.AddGameObject(new GE::GameObject());
 		gameObject->SetDrawAxisEnabled(true);
@@ -24,6 +27,7 @@ TestPlayScene::TestPlayScene(const std::string& sceneName)
 	{
 		auto* gameObject = gameObjectManager.AddGameObject(new GE::GameObject());
 		movingLengthWatcherComponent = gameObject->AddComponent<MovingLengthWatcherComponent>();
+		movingLengthWatcherComponent->SetMovingUIMaxLength(MAX_MOVING_LENGTH);
 	}
 
 	gameObjectManager.Awake();
@@ -40,11 +44,6 @@ void TestPlayScene::Initialize()
 	gameObjectManager.Start();
 
 	isSetPlayerCamera = false;
-
-	const float MAX_START_TIME = 1;
-	startFlagController.Initialize();
-	startFlagController.SetMaxTimeProperty(MAX_START_TIME);
-	startFlagController.SetFlag(true);
 }
 
 void TestPlayScene::Update(float deltaTime)
@@ -54,11 +53,6 @@ void TestPlayScene::Update(float deltaTime)
 		GE::GraphicsDeviceDx12* gDevice = dynamic_cast<GE::GraphicsDeviceDx12*>(graphicsDevice);
 		gDevice->SetMainCamera(playerCameraComponent->GetCamera());
 		isSetPlayerCamera = true;
-	}
-
-	if (startFlagController.GetOverTimeTrigger())
-	{
-		startFlagController.SetFlag(false);
 	}
 
 	if (playerComponent->IsReturnStageSelectScene())
@@ -71,8 +65,6 @@ void TestPlayScene::Update(float deltaTime)
 	gameObjectManager.Update(deltaTime);
 
 	movingLengthWatcherComponent->SetMovingLength(playerComponent->GetGameObject()->GetTransform()->position.x);
-
-	startFlagController.Update(deltaTime);
 }
 
 void TestPlayScene::Draw()
