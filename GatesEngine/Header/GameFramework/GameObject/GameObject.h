@@ -33,6 +33,7 @@ namespace GE
 		void LateDraw();
 		void OnCollision(GameObject* other);
 		void OnCollision(ICollider* hitCollider);
+		void OnCollision(GameObject* other, ICollider* hitCollider);
 
 		Transform* GetTransform();
 		Transform* GetPreTranform();

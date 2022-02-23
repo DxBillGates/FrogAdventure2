@@ -33,6 +33,8 @@ namespace GE
 		/// <param name="hitCollider">ヒットしたコライダーのインターフェイス</param>
 		virtual void OnCollision(ICollider* hitCollider) {}
 
+		virtual void OnCollision(GameObject* other, ICollider* hitCollider) {}
+
 		GameObject* GetGameObject();
 		bool GetEnabled();
 		

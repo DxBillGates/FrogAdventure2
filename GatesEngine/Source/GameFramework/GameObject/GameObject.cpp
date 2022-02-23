@@ -103,6 +103,14 @@ void GE::GameObject::OnCollision(ICollider* hitCollider)
 	}
 }
 
+void GE::GameObject::OnCollision(GameObject* other, ICollider* hitCollider)
+{
+	for (auto& component : components)
+	{
+		component->OnCollision(other,hitCollider);
+	}
+}
+
 GE::Transform* GE::GameObject::GetTransform()
 {
 	return &transform;
