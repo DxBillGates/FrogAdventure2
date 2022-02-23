@@ -156,6 +156,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameObjectCollisionManager.cpp" />
     <ClCompile Include="GameSetting.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MovingLengthWatcherComponent.cpp" />
@@ -172,6 +173,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GameObjectCollisionManager.h" />
     <ClInclude Include="GameSetting.h" />
     <ClInclude Include="MovingLengthWatcherComponent.h" />
     <ClInclude Include="PlayerCameraComponent.h" />

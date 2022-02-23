@@ -58,11 +58,13 @@ void PlayerComponent::FixPosition(float deltaTime)
 	{
 		transform->position.z = 830;
 		vel.z *= -1;
+		preStopVelocity.z *= -1;
 	}
 	else if (transform->position.z <= -760)
 	{
 		transform->position.z = -760;
 		vel.z *= -1;
+		preStopVelocity.z *= -1;
 	}
 }
 
@@ -109,12 +111,18 @@ void PlayerComponent::Start()
 	stopFlagController.Initialize();
 	stopFlagController.SetMaxTimeProperty(STOP_TIME);
 
+	preIsBoostInputKey = false;
+	isReturnStageSelectScene = false;
+
 	vel = GE::Math::Vector3();
 	preVel = vel;
 }
 
 void PlayerComponent::Update(float deltaTime)
 {
+	const float STOP_TIME = 5;
+	stopFlagController.SetMaxTimeProperty(STOP_TIME);
+
 	GE::Math::Matrix4x4 worldMatrix = transform->GetMatrix();
 	GE::Math::Axis axis = worldMatrix.GetAxis();
 	preVel = vel;
@@ -123,11 +131,6 @@ void PlayerComponent::Update(float deltaTime)
 	bool isInputBoostKey = false;
 	if (inputDevice->GetKeyboard()->CheckHitKey(GE::Keys::SPACE))isInputBoostKey = true;
 	if (inputDevice->GetXCtrler()->CheckHitButton(GE::XInputControllerButton::XINPUT_B))isInputBoostKey = true;
-
-	// テスト環境のみ
-	bool isReturnScene = false;
-	if (inputDevice->GetKeyboard()->CheckHitKey(GE::Keys::D0))isReturnScene = true;
-	isReturnStageSelectScene = isReturnScene;
 
 	// プレイシーンの最初のみオート移動
 	if (startFlagController.GetFlag())isInputBoostKey = AutoMove(deltaTime);

@@ -3,6 +3,7 @@
 #include "PlayerComponent.h"
 #include "PlayerCameraComponent.h"
 #include "MovingLengthWatcherComponent.h"
+#include "GameObjectCollisionManager.h"
 
 class TestPlayScene : public GE::Scene
 {
@@ -12,6 +13,7 @@ private:
 	MovingLengthWatcherComponent* movingLengthWatcherComponent;
 	bool isSetPlayerCamera;
 	bool isClear;
+	GameObjectCollisionManager collisionManager;
 public:
 	TestPlayScene();
 	TestPlayScene(const std::string& sceneName);

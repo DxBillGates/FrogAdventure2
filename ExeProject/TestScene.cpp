@@ -3,6 +3,7 @@
 #include "RotateOwnAxisComponent.h"
 #include "PlayerCameraComponent.h"
 #include "Header/Graphics/GraphicsDeviceDx12.h"
+#include "Header/GameFramework/Component/SphereCollider.h"
 
 TestScene::TestScene()
 	: TestScene("TestScene")
@@ -20,6 +21,25 @@ TestScene::TestScene(const std::string& sceneName)
 		gameObject->SetDrawAxisEnabled(true);
 		playerComponent = gameObject->AddComponent<PlayerComponent>();
 		playerCameraComponent = gameObject->AddComponent<PlayerCameraComponent>();
+		auto* collider = gameObject->AddComponent<GE::SphereCollider>();
+	}
+	{
+		auto* gameObject = gameObjectManager.AddGameObject(new GE::GameObject());
+		gameObject->GetTransform()->position = { 2500,0,0 };
+		gameObject->GetTransform()->scale = { 100 };
+		auto* collider = gameObject->AddComponent<GE::SphereCollider>();
+	}
+	{
+		auto* gameObject = gameObjectManager.AddGameObject(new GE::GameObject());
+		gameObject->GetTransform()->position = { -2500,0,0 };
+		gameObject->GetTransform()->scale = { 100 };
+		auto* collider = gameObject->AddComponent<GE::SphereCollider>();
+	}
+	{
+		auto* gameObject = gameObjectManager.AddGameObject(new GE::GameObject());
+		gameObject->GetTransform()->position = { 0,0,2500 };
+		gameObject->GetTransform()->scale = { 100 };
+		auto* collider = gameObject->AddComponent<GE::SphereCollider>();
 	}
 
 	gameObjectManager.Awake();

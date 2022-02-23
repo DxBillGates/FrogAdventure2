@@ -1,5 +1,6 @@
 #include "TestPlayScene.h"
 #include "Header/Graphics/GraphicsDeviceDx12.h"
+#include "Header/GameFramework/Component/SphereCollider.h"
 
 TestPlayScene::TestPlayScene()
 	: TestPlayScene("TestPlayScene")
@@ -18,16 +19,26 @@ TestPlayScene::TestPlayScene(const std::string& sceneName)
 	{
 		auto* gameObject = gameObjectManager.AddGameObject(new GE::GameObject());
 		gameObject->SetDrawAxisEnabled(true);
+		auto* collider = gameObject->AddComponent<GE::SphereCollider>();
 		playerComponent = gameObject->AddComponent<PlayerComponent>();
 		playerComponent->SetIsPlayScene(true);
 		playerCameraComponent = gameObject->AddComponent<PlayerCameraComponent>();
 		playerCameraComponent->SetPitch(90);
 		playerCameraComponent->SetIsPlayScene(true);
+		collisionManager.AddCollider(gameObject, collider, GameObjectCollisionType::PLAYER);
 	}
 	{
 		auto* gameObject = gameObjectManager.AddGameObject(new GE::GameObject());
 		movingLengthWatcherComponent = gameObject->AddComponent<MovingLengthWatcherComponent>();
 		movingLengthWatcherComponent->SetMovingUIMaxLength(MAX_MOVING_LENGTH);
+	}
+	{
+		auto* gameObject = gameObjectManager.AddGameObject(new GE::GameObject());
+		gameObject->SetTag("HelpingObject");
+		gameObject->GetTransform()->position = { MAX_MOVING_LENGTH,0,0 };
+		gameObject->GetTransform()->scale = { 100 };
+		auto* collider = gameObject->AddComponent<GE::SphereCollider>();
+		collisionManager.AddCollider(gameObject, collider, GameObjectCollisionType::STAGE_CLEAR);
 	}
 
 	gameObjectManager.Awake();
@@ -62,6 +73,7 @@ void TestPlayScene::Update(float deltaTime)
 		changeSceneInfo.name = "TestScene";
 	}
 
+	collisionManager.Update();
 	gameObjectManager.Update(deltaTime);
 
 	movingLengthWatcherComponent->SetMovingLength(playerComponent->GetGameObject()->GetTransform()->position.x);
