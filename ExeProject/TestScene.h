@@ -9,6 +9,15 @@ private:
 	PlayerComponent* playerComponent;
 	PlayerCameraComponent* playerCameraComponent;
 
+	GE::ICollider* playerCollider;
+	GE::ICollider* stage1Collider;
+	GE::ICollider* stage2Collider;
+	GE::ICollider* stage3Collider;
+
+	bool isClearStage1;
+	bool isClearStage2;
+	bool isClearStage3;
+
 	bool isSetPlayerCamera;
 public:
 	TestScene();

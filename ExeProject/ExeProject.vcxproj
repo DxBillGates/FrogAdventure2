@@ -155,6 +155,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Event.cpp" />
+    <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObjectCollisionManager.cpp" />
     <ClCompile Include="GameSetting.cpp" />
@@ -163,6 +165,7 @@
     <ClCompile Include="PlayerCameraComponent.cpp" />
     <ClCompile Include="PlayerComponent.cpp" />
     <ClCompile Include="RotateOwnAxisComponent.cpp" />
+    <ClCompile Include="StageClearEvent.cpp" />
     <ClCompile Include="TestPlayScene.cpp" />
     <ClCompile Include="TestScene.cpp" />
   </ItemGroup>
@@ -172,6 +175,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Event.h" />
+    <ClInclude Include="EventManager.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObjectCollisionManager.h" />
     <ClInclude Include="GameSetting.h" />
@@ -179,6 +184,7 @@
     <ClInclude Include="PlayerCameraComponent.h" />
     <ClInclude Include="PlayerComponent.h" />
     <ClInclude Include="RotateOwnAxisComponent.h" />
+    <ClInclude Include="StageClearEvent.h" />
     <ClInclude Include="TestPlayScene.h" />
     <ClInclude Include="TestScene.h" />
   </ItemGroup>

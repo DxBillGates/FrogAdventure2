@@ -12,7 +12,7 @@ namespace GE
 		std::map<std::string, T*> mapList;
 	public:
 		Manager() {}
-		~Manager();
+		virtual ~Manager();
 		void Add(T* newEntity, const std::string& name);
 		T* Get(const std::string& name);
 	};

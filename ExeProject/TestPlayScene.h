@@ -4,6 +4,7 @@
 #include "PlayerCameraComponent.h"
 #include "MovingLengthWatcherComponent.h"
 #include "GameObjectCollisionManager.h"
+#include "EventManager.h"
 
 class TestPlayScene : public GE::Scene
 {
@@ -14,6 +15,7 @@ private:
 	bool isSetPlayerCamera;
 	bool isClear;
 	GameObjectCollisionManager collisionManager;
+	EventManager eventManager;
 public:
 	TestPlayScene();
 	TestPlayScene(const std::string& sceneName);

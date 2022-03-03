@@ -1,6 +1,8 @@
 #include "TestPlayScene.h"
 #include "Header/Graphics/GraphicsDeviceDx12.h"
 #include "Header/GameFramework/Component/SphereCollider.h"
+#include "StageClearEvent.h"
+#include "GameSetting.h"
 
 TestPlayScene::TestPlayScene()
 	: TestPlayScene("TestPlayScene")
@@ -41,6 +43,9 @@ TestPlayScene::TestPlayScene(const std::string& sceneName)
 		collisionManager.AddCollider(gameObject, collider, GameObjectCollisionType::STAGE_CLEAR);
 	}
 
+	auto* testEvent = new StageClearEvent();
+	eventManager.Add(testEvent, "testEvent");
+
 	gameObjectManager.Awake();
 }
 
@@ -55,6 +60,10 @@ void TestPlayScene::Initialize()
 	gameObjectManager.Start();
 
 	isSetPlayerCamera = false;
+	isClear = false;
+
+	GameSetting::GetInstance()->SetGameTime(1);
+	eventManager.Initialize();
 }
 
 void TestPlayScene::Update(float deltaTime)
@@ -68,13 +77,24 @@ void TestPlayScene::Update(float deltaTime)
 
 	if (playerComponent->IsReturnStageSelectScene())
 	{
-		changeSceneInfo.flag = true;
-		changeSceneInfo.initNextSceneFlag = false;
-		changeSceneInfo.name = "TestScene";
+		if (!isClear)
+		{
+			eventManager.SetEvent("testEvent");
+			isClear = true;
+		}
+
+		if (eventManager.Get("testEvent")->IsEnd())
+		{
+			changeSceneInfo.flag = true;
+			changeSceneInfo.initNextSceneFlag = false;
+			changeSceneInfo.name = "TestScene";
+			GameSetting::GetInstance()->SetGameTime(1);
+		}
 	}
 
 	collisionManager.Update();
 	gameObjectManager.Update(deltaTime);
+	eventManager.Update(deltaTime);
 
 	movingLengthWatcherComponent->SetMovingLength(playerComponent->GetGameObject()->GetTransform()->position.x);
 }
